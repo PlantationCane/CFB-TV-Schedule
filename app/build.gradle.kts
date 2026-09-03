@@ -19,12 +19,12 @@ val releaseKeyPassword: String = localProperties.getProperty("release.key.passwo
 
 android {
     namespace = "com.dantonio.cfbschedule"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.dantonio.cfbschedule"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
