@@ -12,6 +12,11 @@ val localProperties = Properties().apply {
 }
 val cfbdApiKey: String = localProperties.getProperty("cfbd.api.key", "")
 
+val releaseKeystorePath: String = localProperties.getProperty("release.keystore.path", "")
+val releaseKeystorePassword: String = localProperties.getProperty("release.keystore.password", "")
+val releaseKeyAlias: String = localProperties.getProperty("release.key.alias", "")
+val releaseKeyPassword: String = localProperties.getProperty("release.key.password", "")
+
 android {
     namespace = "com.dantonio.cfbschedule"
     compileSdk = 34
@@ -26,9 +31,21 @@ android {
         buildConfigField("String", "CFBD_API_KEY", "\"$cfbdApiKey\"")
     }
 
+    signingConfigs {
+        create("release") {
+            if (releaseKeystorePath.isNotEmpty()) {
+                storeFile = rootProject.file(releaseKeystorePath)
+                storePassword = releaseKeystorePassword
+                keyAlias = releaseKeyAlias
+                keyPassword = releaseKeyPassword
+            }
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
