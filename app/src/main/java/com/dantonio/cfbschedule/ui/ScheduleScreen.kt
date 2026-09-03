@@ -66,6 +66,10 @@ import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.util.Locale
 
+// A brighter, more saturated green than the app's primary brand color, used only for the day
+// header banner so the date pops instead of blending into a dark background.
+private val DAY_HEADER_GREEN = androidx.compose.ui.graphics.Color(0xFF2FA85A)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScheduleScreen(viewModel: ScheduleViewModel) {
@@ -240,17 +244,17 @@ private fun DaySection(day: DaySchedule) {
     val gameCount = day.timeSlots.sumOf { it.games.size }
 
     Column {
-        Surface(color = MaterialTheme.colorScheme.primary) {
+        Surface(color = DAY_HEADER_GREEN) {
             Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp)) {
                 Text(
                     "$dayLabel, $dateLabel",
-                    color = MaterialTheme.colorScheme.onPrimary,
+                    color = androidx.compose.ui.graphics.Color.White,
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.titleMedium
                 )
                 Text(
                     "$gameCount ${if (gameCount == 1) "game" else "games"}",
-                    color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.85f),
+                    color = androidx.compose.ui.graphics.Color.White.copy(alpha = 0.9f),
                     style = MaterialTheme.typography.labelMedium
                 )
             }
